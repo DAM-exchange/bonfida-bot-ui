@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { USE_POOLS } from '../../utils/pools';
+import { usePoolTokenSupply, USE_POOLS } from '../../utils/pools';
 import FloatingCard from '../FloatingCard';
 import DepositInput from '../DepositInput';
 import robot from '../../assets/icons/illustrations/robot-top-bar.svg';
@@ -27,6 +27,9 @@ import {
   usePoolUsdBalance,
   usePoolName,
   CUSTOME_NAME_PREFIX,
+  TV_PASSWORD_STORAGE_PREFIX,
+  usePublicKeyFromSeed,
+  useHistoricalPerformance,
 } from '../../utils/pools';
 import { useConnection } from '../../utils/connection';
 import { deposit, Numberu64, redeem } from 'bonfida-bot';
@@ -49,6 +52,17 @@ import { KNOWN_SIGNAL_PROVIDERS } from '../../utils/externalSignalProviders';
 import EditIcon from '@material-ui/icons/Edit';
 import Modal from '../Modal';
 import { TextField } from '@material-ui/core';
+import { TV_CRANKER } from '../../utils/externalSignalProviders';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import InputLabel from '@material-ui/core/InputLabel';
+import IconButton from '@material-ui/core/IconButton';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+import HelpUrls from '../../utils/HelpUrls';
+import { ExplorerLink } from '../Link';
+import Graph from './Graph';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -68,6 +82,27 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     editIcon: {
       cursor: 'pointer',
+    },
+    tvPassword: {
+      height: 40,
+      width: '100%',
+      marginTop: 10,
+      marginBottom: 10,
+    },
+    tvSection: {
+      marginBottom: 15,
+      marginTop: 15,
+      fontWeight: 600,
+    },
+    subSectionPoolInformation: {
+      marginBottom: 20,
+      marginTop: 20,
+      fontWeight: 600,
+      opacity: 0.75,
+    },
+    performanceContainer: {
+      width: '100%',
+      height: '250px',
     },
   }),
 );
@@ -148,9 +183,11 @@ const CustomNameDialog = ({
 const PoolTitle = ({
   poolName,
   poolSeed,
+  canEdit,
 }: {
   poolName: string;
   poolSeed: string;
+  canEdit?: boolean;
 }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -163,17 +200,122 @@ const PoolTitle = ({
         </Grid>
         <Grid item>
           <Typography variant="h1" className={classes.poolTitle}>
-            {poolName}{' '}
-            <EditIcon
-              className={classes.editIcon}
-              onClick={() => setOpen(true)}
-            />
+            {poolName}
+            {canEdit && (
+              <EditIcon
+                className={classes.editIcon}
+                onClick={() => setOpen(true)}
+              />
+            )}
           </Typography>
         </Grid>
       </Grid>
       <Modal open={open} setOpen={setOpen}>
         <CustomNameDialog poolSeed={poolSeed} setOpen={setOpen} />
       </Modal>
+    </>
+  );
+};
+
+export const TradingViewSection = ({
+  isCustomTradingView,
+  tradingViewPassword,
+}: {
+  isCustomTradingView: boolean | undefined | null;
+  tradingViewPassword: string | undefined | null;
+}) => {
+  const classes = useStyles();
+  const [showTvPassword, setShowTvPassword] = useState(false);
+  if (!isCustomTradingView || !tradingViewPassword) {
+    return null;
+  }
+  return (
+    <>
+      <Typography variant="body1" className={classes.tvSection} align="center">
+        TradingView
+      </Typography>
+      <InputLabel>TradingView Password</InputLabel>
+      <OutlinedInput
+        disabled
+        type={showTvPassword ? 'text' : 'password'}
+        value={tradingViewPassword}
+        className={classes.tvPassword}
+        inputProps={{ style: { fontSize: 20 } }}
+        endAdornment={
+          <InputAdornment position="end">
+            <IconButton
+              onClick={() => setShowTvPassword((prev) => !prev)}
+              onMouseDown={(e) => e.preventDefault()}
+              edge="end"
+              style={{ margin: 10 }}
+            >
+              {showTvPassword ? <Visibility /> : <VisibilityOff />}
+            </IconButton>
+            <IconButton
+              onClick={() => {
+                navigator.clipboard.writeText(tradingViewPassword || '');
+                notify({ message: 'Copied!' });
+              }}
+              onMouseDown={(e) => e.preventDefault()}
+              edge="end"
+              style={{ margin: 10 }}
+            >
+              <FileCopyIcon />
+            </IconButton>
+          </InputAdornment>
+        }
+      />
+      <InputLabel>Webhook URL</InputLabel>
+      <OutlinedInput
+        disabled
+        type="text"
+        value={HelpUrls.webhookUrl}
+        className={classes.tvPassword}
+        inputProps={{ style: { fontSize: 20 } }}
+        endAdornment={
+          <InputAdornment position="end">
+            <IconButton
+              onClick={() => {
+                navigator.clipboard.writeText(HelpUrls.webhookUrl || '');
+                notify({ message: 'Copied!' });
+              }}
+              onMouseDown={(e) => e.preventDefault()}
+              edge="end"
+              style={{ margin: 10 }}
+            >
+              <FileCopyIcon />
+            </IconButton>
+          </InputAdornment>
+        }
+      />
+      <InformationRow
+        label="TradingView Message"
+        value="/tradingview-generator"
+        isLink
+        linkText="Message Generator"
+      />
+    </>
+  );
+};
+
+const PerformanceSection = ({ poolSeed }: { poolSeed: string }) => {
+  const classes = useStyles();
+  const [performance] = useHistoricalPerformance(poolSeed);
+  if (!performance || performance?.length === 0) {
+    return null;
+  }
+  return (
+    <>
+      <Typography
+        variant="body1"
+        className={classes.subSectionPoolInformation}
+        align="center"
+      >
+        Pool Historical Performance:
+      </Typography>
+      <div className={classes.performanceContainer}>
+        <Graph data={performance} yKey="poolTokenUsdValue" xKey="time" />
+      </div>
     </>
   );
 };
@@ -185,6 +327,9 @@ const PoolInformation = ({
   poolSeed: PublicKey;
   tokenAccounts: any;
 }) => {
+  const classes = useStyles();
+  const { connected } = useWallet();
+  const [poolKey] = usePublicKeyFromSeed(poolSeed);
   const [poolBalance] = usePoolBalance(poolSeed);
   const [poolInfo, poolInfoLoaded] = usePoolInfo(poolSeed);
   const pool = USE_POOLS.find(
@@ -211,9 +356,6 @@ const PoolInformation = ({
     [poolInfoLoaded],
   );
 
-  // Orders
-  // const [poolOrdersInfo, poolOrdersInfoLoaded] = usePoolOrderInfos(poolSeed);
-
   const isVerified = useMemo(
     () =>
       !!pool ||
@@ -221,6 +363,16 @@ const PoolInformation = ({
         poolInfo?.signalProvider.toBase58() || '',
       ),
     [poolInfoLoaded],
+  );
+
+  const isCustomTradingView = useMemo(
+    () => poolInfo?.signalProvider.toBase58() === TV_CRANKER && !pool,
+    [poolInfoLoaded],
+  );
+
+  const [tradingViewPassword] = useLocalStorageState(
+    TV_PASSWORD_STORAGE_PREFIX + poolSeed,
+    null,
   );
 
   return (
@@ -240,20 +392,41 @@ const PoolInformation = ({
       <TabPanel value={tab} index={0}>
         <InformationRow
           label="Pool Token Supply"
-          value={poolBalance ? poolBalance[0]?.uiAmount : 0}
+          value={poolBalance ? poolBalance[0]?.uiAmount : 'Loading...'}
         />
         <InformationRow
           label="USD Value of the Pool"
-          value={`$${roundToDecimal(usdValue, 2)}`}
+          value={usdValue ? `$${roundToDecimal(usdValue, 2)}` : 'Loading...'}
         />
         <InformationRow
           label="Pool Token Value"
-          value={`$${
-            poolBalance
-              ? roundToDecimal(usdValue / poolBalance[0]?.uiAmount, 2)
-              : 0
-          }`}
+          value={
+            usdValue
+              ? `$${
+                  poolBalance
+                    ? roundToDecimal(usdValue / poolBalance[0]?.uiAmount, 3)
+                    : null
+                }`
+              : 'Loading...'
+          }
         />
+        {pool && poolBalance && (
+          <InformationRow
+            label="Inception performance"
+            value={
+              usdValue
+                ? `${
+                    poolBalance
+                      ? roundToDecimal(
+                          100 * (usdValue / poolBalance[0]?.uiAmount - 1),
+                          2,
+                        )
+                      : null
+                  }%`
+                : 'Loading...'
+            }
+          />
+        )}
         <Typography variant="body1">Tokens in the pool:</Typography>
         {poolBalance &&
           poolBalance[1]?.map((asset) => {
@@ -267,10 +440,12 @@ const PoolInformation = ({
               </div>
             );
           })}
-        <InformationRow
-          label="Your Share of the Pool"
-          value={userPoolTokenBalance?.toLocaleString() || 0}
-        />
+        {connected && (
+          <InformationRow
+            label="Your Share of the Pool"
+            value={userPoolTokenBalance?.toLocaleString() || 'Loading...'}
+          />
+        )}
       </TabPanel>
       {/* Pool Description if whitelisted */}
       <TabPanel value={tab} index={1}>
@@ -288,7 +463,7 @@ const PoolInformation = ({
         )}
         <Typography
           variant="body1"
-          style={{ marginBottom: 15, marginTop: 15, fontWeight: 600 }}
+          className={classes.subSectionPoolInformation}
           align="center"
         >
           Pool Keys:
@@ -299,8 +474,13 @@ const PoolInformation = ({
           isExplorerLink
         />
         <InformationRow
-          label=" - Pool Seed (Address)"
+          label=" - Pool Seed"
           value={poolSeed.toBase58()}
+          isExplorerLink
+        />
+        <InformationRow
+          label=" - Pool PublicKey"
+          value={poolKey?.toBase58()}
           isExplorerLink
         />
         <InformationRow
@@ -310,7 +490,7 @@ const PoolInformation = ({
         />
         <Typography
           variant="body1"
-          style={{ marginBottom: 15, marginTop: 15, fontWeight: 600 }}
+          className={classes.subSectionPoolInformation}
           align="center"
         >
           The pool can only trade on the following markets:
@@ -326,28 +506,21 @@ const PoolInformation = ({
             );
           })}
         </div>
-        {/* {poolOrdersInfoLoaded && poolOrdersInfo && (
-          <>
-            <Typography
-              variant="body1"
-              style={{ marginBottom: 15, marginTop: 15, fontWeight: 600 }}
-              align="center"
-            >
-              Recent trades of the pool:
-            </Typography>
-            {poolOrdersInfo.map((tx) => {
-              console.log(tx.settledAmount);
-              console.log(tx.transferredAmount);
-              return (
-                <Typography variant="body1">
-                  {' - '} {marketNameFromAddress(tx.market)}{' '}
-                  {tx.side === 0 ? 'buy' : 'sell'} {tx.transferredAmount}@
-                  {tx.limitPrice}
-                </Typography>
-              );
-            })}
-          </>
-        )} */}
+        <TradingViewSection
+          isCustomTradingView={isCustomTradingView}
+          tradingViewPassword={tradingViewPassword}
+        />
+        <PerformanceSection poolSeed={poolSeed.toBase58()} />
+        <Typography
+          variant="body1"
+          className={classes.subSectionPoolInformation}
+          align="center"
+        >
+          View the bot's trades on the{' '}
+          <ExplorerLink address={poolKey?.toBase58()}>
+            Solana Explorer
+          </ExplorerLink>
+        </Typography>
       </TabPanel>
       <TabPanel value={tab} index={2}>
         {poolInfo && (
@@ -559,7 +732,7 @@ export const PoolPanel = ({ poolSeed }: { poolSeed: string }) => {
         {/* Header */}
         <VerifiedPool isVerified={isVerified} />
         {/* Deposit/Withdraw tokens */}
-        <PoolTitle poolName={poolName} poolSeed={poolSeed} />
+        <PoolTitle poolName={poolName} poolSeed={poolSeed} canEdit={!pool} />
         <Divider
           width="80%"
           height="1px"

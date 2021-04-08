@@ -4,7 +4,9 @@ An implementation of a UI for Bonfida Bot.
 
 [Bonfida Bot Tutorial](https://www.youtube.com/watch?v=6BFmyi0qnEI)
 
-Bonfida Bot is hosted on IPFS. Current IPFS CID: **QmdBZwErEtjKiDnt6Y3VMi6Sduo81e5daaHTnTijDAm2TS**
+Bonfida Bot is hosted on IPFS. Current IPFS CID: **QmPiq32hWPqQCt862XBwXoLdtzB4zaEYDiEgkMURPt8W9t**.
+
+You can verify the build using the `etag` of the **Response Header**.
 
 ## Running the UI
 
@@ -55,7 +57,7 @@ Bonfida-bot is a an on-chain and off-chain tool suite that enables the creation 
 
 ## Signal Provider fees
 
-Each pool has a signal provider (i.e a SOL address) that can send trading instruction to the pool. When a signal provider creates a pool he can set up the `feePeriod` and the `feeRate`. The `feeRate` is the amount of pool tokens that will deducted from the pool and paid to the signal provider at every `feePeriod`.
+Each pool has a signal provider (i.e a SOL address) that can send trading instructions to the pool. When a signal provider creates a pool he can set up the `feePeriod` and the `feeRate`. The `feeRate` is the amount of pool tokens that will deducted from the pool and paid to the signal provider at every `feePeriod`.
 
 - The signal provider is never directly in control of the pool's asset. They can only issue Serum market orders on behalf of the pool.
 
