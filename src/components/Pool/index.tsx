@@ -736,7 +736,7 @@ export const PoolPanel = ({ poolSeed }: { poolSeed: string }) => {
         <Divider
           width="80%"
           height="1px"
-          background="#B80812"
+          background="#2186ba"
           marginLeft="auto"
           marginRight="auto"
           opacity={0.5}
@@ -772,7 +772,7 @@ export const PoolPanel = ({ poolSeed }: { poolSeed: string }) => {
         <Divider
           width="80%"
           height="1px"
-          background="#B80812"
+          background="#2186ba"
           marginLeft="auto"
           marginRight="auto"
           opacity={0.5}
@@ -789,7 +789,7 @@ export const PoolPanel = ({ poolSeed }: { poolSeed: string }) => {
         <Divider
           width="80%"
           height="1px"
-          background="#B80812"
+          background="#2186ba"
           marginLeft="auto"
           marginRight="auto"
           opacity={0.5}
@@ -806,7 +806,7 @@ export const PoolPanel = ({ poolSeed }: { poolSeed: string }) => {
         <Divider
           width="80%"
           height="1px"
-          background="#B80812"
+          background="#2186ba"
           marginLeft="auto"
           marginRight="auto"
           opacity={0.5}

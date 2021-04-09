@@ -56,8 +56,8 @@ const useStyles = makeStyles({
     padding: 30,
     transition: 'transform .2s',
     cursor: 'pointer',
-    borderColor: '#B80812',
-    boxShadow: `-12px 12px 0px 1px #B80812`,
+    borderColor: '#2186ba',
+    boxShadow: `-12px 12px 0px 1px #2186ba`,
     boxSizing: 'border-box',
     '&:hover': {
       transform: 'scale(1.02)',

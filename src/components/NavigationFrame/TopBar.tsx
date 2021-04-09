@@ -43,7 +43,7 @@ const useStyles = makeStyles({
     backgroundColor: 'transparent',
     '&:hover': {
       backgroundColor: 'unset',
-      color: '#BA0202',
+      color: '#2186ba',
     },
   },
   bonfidaBot: {
@@ -104,7 +104,7 @@ const Logo = () => {
           />
         </Grid>
         <Grid item>
-          <Typography className={classes.bonfidaBot}>BonfidaBot</Typography>
+          <Typography className={classes.bonfidaBot}>DAMex</Typography>
         </Grid>
       </Grid>
     </>
@@ -162,7 +162,7 @@ const TopBar = () => {
                   className={classes.button}
                   onClick={() => history.push(e.href)}
                   style={{
-                    color: selectedIndex === e.name ? '#BA0202' : '#393939',
+                    color: selectedIndex === e.name ? '#2186ba' : '#393939',
                   }}
                 >
                   {e.name}

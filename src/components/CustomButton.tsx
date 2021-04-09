@@ -6,14 +6,14 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles({
   button: {
     color: 'white',
-    background: '#BA0202',
+    background: '#2186ba',
     width: 'auto',
     borderRadius: 0,
     height: '50px',
     transitionDuration: '0s',
     '&:hover': {
       color: 'white',
-      background: '#BA0202',
+      background: '#2186ba',
     },
   },
   text: {

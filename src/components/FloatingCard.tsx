@@ -3,9 +3,9 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    boxShadow: '12px 12px 0px 1px #B80812',
+    boxShadow: '12px 12px 0px 1px #2186ba',
     background: '#F0E9E7',
-    border: '2px solid #B80812',
+    border: '2px solid #2186ba',
     boxSizing: 'border-box',
     width: 'auto',
     height: 'auto',
