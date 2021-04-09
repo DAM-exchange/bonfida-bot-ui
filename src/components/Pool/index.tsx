@@ -123,7 +123,7 @@ const VerifiedPool = ({ isVerified }: { isVerified: boolean }) => {
       label="Unverified Pool"
       color="primary"
       deleteIcon={<WarningIcon />}
-      style={{ backgroundColor: '#BA0202' }}
+      style={{ backgroundColor: '#2186ba' }}
     />
   );
 };

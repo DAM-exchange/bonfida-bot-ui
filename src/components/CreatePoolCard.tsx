@@ -66,10 +66,10 @@ const useStyles = makeStyles({
     margin: 20,
   },
   remove: {
-    color: '#BA0202',
+    color: '#2186ba',
   },
   gridContainer: {
-    border: '1px solid #BA0202',
+    border: '1px solid #2186ba',
   },
   autoComplete: {
     height: 55,
@@ -576,7 +576,7 @@ const CreatePoolCard = () => {
             )}
             {/* Markets */}
             <Divider
-              background="#BA0202"
+              background="#2186ba"
               width="80%"
               opacity={0.7}
               height="1px"
@@ -626,7 +626,7 @@ const CreatePoolCard = () => {
             </Grid>
             {/* Assets and min amount */}
             <Divider
-              background="#BA0202"
+              background="#2186ba"
               width="80%"
               opacity={0.7}
               height="1px"
@@ -650,7 +650,7 @@ const CreatePoolCard = () => {
             })}
             {/* Select Fees schedule + period*/}
             <Divider
-              background="#BA0202"
+              background="#2186ba"
               width="80%"
               opacity={0.7}
               height="1px"
@@ -702,7 +702,7 @@ const CreatePoolCard = () => {
 
             {/* Create */}
             <Divider
-              background="#BA0202"
+              background="#2186ba"
               width="80%"
               opacity={0.7}
               height="1px"
@@ -720,7 +720,7 @@ const CreatePoolCard = () => {
           {createdPoolSeed && (
             <>
               <Divider
-                background="#BA0202"
+                background="#2186ba"
                 width="80%"
                 opacity={0.7}
                 height="1px"

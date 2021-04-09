@@ -62,7 +62,7 @@ const useStyles = makeStyles({
     background: 'transparent',
     padding: 15,
     borderRadius: 0,
-    border: '1px solid #BA0202',
+    border: '1px solid #2186ba',
   },
 });
 

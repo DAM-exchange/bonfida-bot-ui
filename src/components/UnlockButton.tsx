@@ -7,13 +7,13 @@ import lock from '../assets/lock.svg';
 const useStyles = makeStyles({
   button: {
     color: 'white',
-    background: '#BA0202',
+    background: '#2186ba',
     width: 'auto',
     borderRadius: '8px',
     height: '50px',
     '&:hover': {
       background: 'white',
-      color: '#BA0202',
+      color: '#2186ba',
     },
   },
   lock: {
