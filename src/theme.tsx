@@ -25,7 +25,7 @@ export const theme = createMuiTheme({
     MuiTab: {
       textColorPrimary: {
         '&$selected': {
-          color: '#BA0202',
+          color: '#2186ba',
           fontWeight: 700,
         },
       },

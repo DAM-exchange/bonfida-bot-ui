@@ -39,9 +39,9 @@ const useStyles = makeStyles({
     paddingTop: '50px',
   },
   redShadowRight: {
-    boxShadow: '12px 12px 0px 1px #B80812',
+    boxShadow: '12px 12px 0px 1px #2186ba',
     background: '#F0E9E7',
-    border: '2px solid #B80812',
+    border: '2px solid #2186ba',
     boxSizing: 'border-box',
     width: '50vw',
     height: 250,
@@ -101,8 +101,8 @@ const HomePage = () => {
       <div className={classes.root}>
         <ExploreBanner />
         <StrategySection
-          h2="Super Trend Strategies"
-          strategiesArray={SUPER_TRENDS_STRATEGIES}
+          h2="Custom Strategies by our Creators"
+          strategiesArray={RSI_STRATEGIES}
         />
         <StrategySection h2="RSI Strategies" strategiesArray={RSI_STRATEGIES} />
         <div className={classes.exploreContainer}>
