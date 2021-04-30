@@ -34,6 +34,14 @@ const BENSON_STRATEGIES = USE_POOLS.filter(
   (p) => p.strategyType === STRATEGY_TYPES.SENTIMENT_BENSON,
 );
 
+const COMPENDIUM_STRATEGIES = USE_POOLS.filter(
+  (p) => p.strategyType === STRATEGY_TYPES.COMPENDIUML,
+);
+
+const BARTBOT_STRATEGIES = USE_POOLS.filter(
+  (p) => p.strategyType === STRATEGY_TYPES.BART,
+);
+
 const useStyles = makeStyles({
   container: {
     marginTop: 50,
@@ -213,6 +221,11 @@ const ExplorerPage = () => {
       <StrategySection
         h2={t('Sentiment Strategy Pro [Benson]')}
         strategiesArray={BENSON_STRATEGIES}
+      />
+      <StrategySection h2={t('BartBot')} strategiesArray={BARTBOT_STRATEGIES} />
+      <StrategySection
+        h2={t('CompendiuML')}
+        strategiesArray={COMPENDIUM_STRATEGIES}
       />
       <StrategySection h2="RSI Strategies" strategiesArray={RSI_STRATEGIES} />
       <StrategySection

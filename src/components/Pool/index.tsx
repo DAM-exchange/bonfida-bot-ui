@@ -37,8 +37,10 @@ import CustomButton from '../CustomButton';
 import InformationRow from '../InformationRow';
 import {
   roundToDecimal,
+  roundToDecimal2,
   formatSeconds,
   useLocalStorageState,
+  WRAPPED_SOL_MINT,
 } from '../../utils/utils';
 import Emoji from '../Emoji';
 import { notify } from '../../utils/notifications';
@@ -65,6 +67,7 @@ import { ExplorerLink } from '../Link';
 import Graph from './Graph';
 import Trans from '../Translation';
 import { useTranslation } from 'react-i18next';
+import Link from '../Link';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -105,6 +108,9 @@ const useStyles = makeStyles((theme: Theme) =>
     performanceContainer: {
       width: '100%',
       height: '250px',
+    },
+    wrapped: {
+      margin: '3%',
     },
   }),
 );
@@ -422,7 +428,7 @@ const PoolInformation = ({
               : 'Loading...'
           }
         />
-        {pool && poolBalance && (
+        {pool?.initialPoolTokenUsdValue && poolBalance && (
           <InformationRow
             label={t('Inception performance')}
             value={
@@ -559,6 +565,7 @@ const PoolInformation = ({
 };
 
 export const PoolPanel = ({ poolSeed }: { poolSeed: string }) => {
+  const classes = useStyles();
   const connection = useConnection();
   const { wallet, connected } = useWallet();
   const { t } = useTranslation();
@@ -576,9 +583,11 @@ export const PoolPanel = ({ poolSeed }: { poolSeed: string }) => {
   const [amount, setAmount] = useState('0');
   const [tokenAccounts] = useTokenAccounts();
   const balance = useBalanceForMint(tokenAccounts, mint);
-
   const [loading, setLoading] = useState(false);
   const [quote, setQuote] = useState<string | null>(null);
+  const [hasWrappedSol, setHasWrappedSol] = useState<undefined | boolean>(
+    false,
+  );
 
   const isAdmin = useMemo(
     () =>
@@ -602,6 +611,15 @@ export const PoolPanel = ({ poolSeed }: { poolSeed: string }) => {
   const history = useHistory();
 
   useMemo(() => {
+    if (!poolBalance) {
+      return;
+    }
+    const has = poolBalance[1].find(({ mint }) => mint === WRAPPED_SOL_MINT);
+
+    setHasWrappedSol(!!has);
+  }, [poolBalance]);
+
+  useMemo(() => {
     if (poolInfo) {
       setMint(poolInfo.mintKey.toBase58());
     }
@@ -621,7 +639,7 @@ export const PoolPanel = ({ poolSeed }: { poolSeed: string }) => {
     for (let i = 0; i < poolBalance[1].length; i++) {
       let b = poolBalance[1][i];
       quoteAssets.push(
-        `${roundToDecimal(
+        `${roundToDecimal2(
           (b.tokenAmount.uiAmount / poolTokenSupply) * parseFloat(amount),
           3,
         )} ${tokenNameFromMint(b.mint)}`,
@@ -640,7 +658,7 @@ export const PoolPanel = ({ poolSeed }: { poolSeed: string }) => {
       });
       return;
     }
-    // Checks enough in wallet, !isNaN amount
+
     if (!poolInfo || !tokenAccounts || !poolBalance) {
       notify({
         message: 'Try again',
@@ -666,6 +684,17 @@ export const PoolPanel = ({ poolSeed }: { poolSeed: string }) => {
       let sourceAssetKeys: PublicKey[] = [];
       const poolAssetsMints = poolInfo.assetMintkeys.map((a) => a.toBase58());
 
+      let balancesNeeded = new Map<string, number>();
+      // Check user Balances
+      const poolTokenSupply = poolBalance[0].uiAmount;
+      for (let i = 0; i < poolBalance[1].length; i++) {
+        let b = poolBalance[1][i];
+        balancesNeeded.set(
+          b.mint,
+          (b.tokenAmount.uiAmount / poolTokenSupply) * parsedAmount,
+        );
+      }
+
       for (let mint of poolAssetsMints) {
         const account = tokenAccounts.find(
           (acc) => acc.account.data.parsed.info.mint === mint,
@@ -682,10 +711,37 @@ export const PoolPanel = ({ poolSeed }: { poolSeed: string }) => {
             new PublicKey(mint),
           );
           sourceAssetKeys.push(associatedTokenAccount);
+          if (tab === 0) {
+            notify({
+              message: `You don't have enough balances for ${tokenNameFromMint(
+                mint,
+              )}`,
+              variant: 'error',
+            });
+            return;
+          }
         } else {
-          sourceAssetKeys.push(new PublicKey(account.pubkey));
+          const requiredBalance = balancesNeeded.get(mint);
+          if (
+            (tab === 0 &&
+              requiredBalance &&
+              account.account.data.parsed.info.tokenAmount.uiAmount >
+                requiredBalance) ||
+            tab === 1
+          ) {
+            sourceAssetKeys.push(new PublicKey(account.pubkey));
+          } else {
+            notify({
+              message: `You don't have enough balances for ${tokenNameFromMint(
+                mint,
+              )}`,
+              variant: 'error',
+            });
+            return;
+          }
         }
       }
+
       let instructions: TransactionInstruction[] = [];
       if (tab === 0) {
         // Tab === 0 => Deposit
@@ -783,6 +839,14 @@ export const PoolPanel = ({ poolSeed }: { poolSeed: string }) => {
               {quote}
             </Typography>
           </>
+        )}
+        {hasWrappedSol && (
+          <div className={classes.wrapped}>
+            <Typography variant="body1" align="center">
+              <Emoji emoji="💡" /> This pool contains{' '}
+              <Link to="/wrapper">wrapped SOL</Link>.
+            </Typography>
+          </div>
         )}
         {/* Pool info */}
         <Divider

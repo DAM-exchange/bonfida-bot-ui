@@ -8,7 +8,7 @@ import Divider from './Divider';
 import WalletConnect from './WalletConnect';
 import MarketInput from './MarketInput';
 import CustomButton from './CustomButton';
-import { sendTransaction } from '../utils/send';
+import { signTransactions, sendSignedTransaction } from '../utils/send';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { getAssetsFromMarkets } from '../utils/markets';
 import {
@@ -198,7 +198,7 @@ const CreatePoolCard = () => {
       return {
         name: e.name,
         mint: e.mint,
-        amount: 0,
+        amount: '0',
       };
     }),
   );
@@ -212,7 +212,9 @@ const CreatePoolCard = () => {
       return {
         name: e.name,
         mint: e.mint,
-        amount: old.find((oldAsset) => oldAsset.mint === e.mint)?.amount || 0,
+        amount:
+          old.find((oldAsset) => oldAsset.mint === e.mint)?.amount.toString() ||
+          '0',
       };
     });
     setAssets(newAssets);
@@ -367,7 +369,7 @@ const CreatePoolCard = () => {
           // @ts-ignore
           new PublicKey(asset.mint),
         );
-        amounts.push(asset.amount * Math.pow(10, decimals));
+        amounts.push(parseFloat(asset.amount) * Math.pow(10, decimals));
       }
 
       const authorizedMarkets = [...new Set(marketAddresses)].map(
@@ -387,14 +389,19 @@ const CreatePoolCard = () => {
         new Numberu64(_feeCollectionPeriod),
         _feeRatio,
       );
-      const tx = new Transaction();
-      tx.add(...transactionInstructions);
-      await sendTransaction({
-        transaction: tx,
-        wallet: wallet,
+
+      const signed = await signTransactions({
+        transactionsAndSigners: transactionInstructions.map((i) => {
+          return { transaction: new Transaction().add(i) };
+        }),
         connection: connection,
-        sendingMessage: 'Sending create pool instruction...',
+        wallet: wallet,
       });
+
+      for (let signedTransaction of signed) {
+        console.log('sending signed transaction');
+        await sendSignedTransaction({ signedTransaction, connection });
+      }
 
       setCreatedPoolSeed(bs58.encode(poolSeed));
 
