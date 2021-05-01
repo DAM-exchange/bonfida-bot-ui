@@ -287,9 +287,9 @@ export const USE_POOLS: Pool[] = [
     strategyType: STRATEGY_TYPES.VOLATILITY_EXPANSION,
     initialPoolTokenUsdValue: 1,
   },
-  // TYTHE
+  // TYCHE
   {
-    name: 'TYTHE BTC 4H',
+    name: 'TYCHE BTC 4H',
     poolSeed: new PublicKey('a4sAGUwpRhtmNSTDaz5EbvSTfdm6v3hp9ZLeiFaTD8R'),
     illustration: dca,
     description: rsiDescription('BTC/USDC', '4H'),
@@ -300,7 +300,7 @@ export const USE_POOLS: Pool[] = [
     initialPoolTokenUsdValue: 100,
   },
   {
-    name: 'TYTHE BTC 15MIN',
+    name: 'TYCHE BTC 15MIN',
     poolSeed: new PublicKey('3s34bzGFdz4PwyCULuvXmX359tGfrKsoDdXWNYmCgyGr'),
     illustration: dca,
     description: rsiDescription('BTC/USDC', '15min'),
@@ -311,7 +311,7 @@ export const USE_POOLS: Pool[] = [
     initialPoolTokenUsdValue: 1,
   },
   {
-    name: 'TYTHE BTC 8/41',
+    name: 'TYCHE BTC 8/41',
     poolSeed: new PublicKey('CitkcPD3WhpbDR4cEsnh1RmyhvGChkrwnLMVgxNNAL6R'),
     illustration: dca,
     description: rsiDescription('BTC/USDC', '1H'),

@@ -107,7 +107,7 @@ const HomePage = () => {
           h2="ORION Strategies"
           strategiesArray={SUPER_TRENDS_STRATEGIES}
         />
-        <StrategySection h2="TYTHE Strategies" strategiesArray={RSI_STRATEGIES} />
+        <StrategySection h2="TYCHE Strategies" strategiesArray={RSI_STRATEGIES} />
         <div className={classes.exploreContainer}>
           <CustomButton onClick={() => history.push('/explore')}>
             <Trans>Explore</Trans>
