@@ -227,9 +227,9 @@ const ExplorerPage = () => {
         h2={t('CompendiuML')}
         strategiesArray={COMPENDIUM_STRATEGIES}
       />
-      <StrategySection h2="RSI Strategies" strategiesArray={RSI_STRATEGIES} />
+      <StrategySection h2="TYTHE Strategies" strategiesArray={RSI_STRATEGIES} />
       <StrategySection
-        h2="Super Trend Strategies"
+        h2="ORION Strategies"
         strategiesArray={SUPER_TRENDS_STRATEGIES}
       />
       <StrategySection h2="MACD Strategies" strategiesArray={MACD_STRATEGIES} />

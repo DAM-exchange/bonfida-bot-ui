@@ -62,6 +62,7 @@ export enum ASSETS {
   FIDA = 'FIDA',
   SRM = 'SRM',
   SOL = 'SOL',
+  LINK = 'LINK',
 }
 
 const styles = {
@@ -86,10 +87,10 @@ const superTrendDescription = (
   }
   return (
     <Trans i18nKey="superTrend">
-      <b style={styles.b}>{tf} Super Trend</b> strategy on{' '}
-      <b style={styles.b}>{marketName}</b>. Super Trend is a TradingView
-      indicator, you can find more information about it on the{' '}
-      <Link external to="https://www.tradingview.com/script/P5Gu6F8k/">
+      <b style={styles.b}>{tf} Orion </b> strategy on{' '}
+      <b style={styles.b}>{marketName}</b>. Orion is Tradery Labs intelectual property, 
+      you can find more information about it on the{' '}
+      <Link external to="https://www.tradery.io">
         dedicated page
       </Link>
     </Trans>
@@ -104,19 +105,17 @@ const rsiDescription = (
   if (short) {
     return (
       <>
-        <b style={styles.b}>{tf} RSI</b> strategy on{' '}
-        <b style={styles.b}>{marketName}</b>. RSI is a momentum oscillator that
-        measures the speed and change of price movements...
+        <b style={styles.b}>{tf} Tyche</b> strategy on{' '}
+        <b style={styles.b}>{marketName}</b>. Tyche is intelectual property of DAM.ex.
       </>
     );
   }
   return (
     <Trans i18nKey="rsi">
-      <b style={styles.b}>{{ tf }} RSI</b> strategy on{' '}
-      <b style={styles.b}>{{ marketName }}</b>. RSI is a momentum oscillator
-      that measures the speed and change of price movements, learn more about it
+      <b style={styles.b}>{{ tf }} Tyche</b> strategy on{' '}
+      <b style={styles.b}>{{ marketName }}</b>. Tyche is intelectual property of DAM.ex, learn more about it
       on the{' '}
-      <Link external to="https://www.investopedia.com/terms/r/rsi.asp">
+      <Link external to="https://DAM.exchange">
         dedicated page
       </Link>
     </Trans>
@@ -229,51 +228,41 @@ const bartBotDescription = () => {
 };
 
 export const USE_POOLS: Pool[] = [
-  // Super Trend
+  // ORION
   {
-    name: 'BTC Super Trend',
-    poolSeed: new PublicKey('CmGfYkZD7sXp3tCUNKdiUHV2cg2KscqAoY6EMKehNM4S'),
+    name: 'BTC ORION',
+    poolSeed: new PublicKey('9B6bYaydXdH2rB36n6D9iQNGg6jygPaVQYeZvUekAtLE'),
     illustration: null,
     description: superTrendDescription('BTC/USDC', '4H'),
-    shortDescription: superTrendDescription('BTC/USDC', '4H', true),
-    mintAddress: new PublicKey('BMTwkARS5jTygykkAukwL2GW15kt4pij1kqmBn4oNc62'),
+    shortDescription: superTrendDescription('BTC/USDC', '15min', true),
+    mintAddress: new PublicKey('2ABpd9qGyBnAygnr3UFgBMZHyr49LLUwnNMUt5ukVYFu'),
     mainAsset: ASSETS.BTC,
     strategyType: STRATEGY_TYPES.SUPER_TREND,
-    initialPoolTokenUsdValue: 1,
+    initialPoolTokenUsdValue: 50,
   },
   {
-    name: 'ETH Super Trend',
-    poolSeed: new PublicKey('Fm9m2muT5pSSsugiq8Ro7XVBnQoPopZpQVLDKgqY71LJ'),
+    name: 'SOL ORION',
+    poolSeed: new PublicKey('2zoYmYEbhNcPMthaTCNgwwSm5xAmam2eK1cXpmVK6rKY'),
     illustration: null,
-    description: superTrendDescription('ETH/USDC', '4H'),
-    shortDescription: superTrendDescription('ETH/USDC', '4H', true),
-    mintAddress: new PublicKey('BiZh12i7dXcGNBAP774zXoJthS3HhV8gdRXokhdMjdPw'),
-    mainAsset: ASSETS.ETH,
+    description: superTrendDescription('SOL/USDC', '4H'),
+    shortDescription: superTrendDescription('SOL/USDC', '4H', true),
+    mintAddress: new PublicKey('DtSF2UqJJ8WFZ54Sdedmgpd5XWf3NTPxvKHDK6PuDZ3e'),
+    mainAsset: ASSETS.SOL,
+    strategyType: STRATEGY_TYPES.SUPER_TREND,
+    initialPoolTokenUsdValue: 10,
+  },
+  {
+    name: 'LINK ORION',
+    poolSeed: new PublicKey('2QtsvTrGY8iGGA1ptZJJcZhy6bnzvwCtcyYHwKSX1JaZ'),
+    illustration: null,
+    description: superTrendDescription('LINK/USDC', '4H'),
+    shortDescription: superTrendDescription('LINK/USDC', '4H', true),
+    mintAddress: new PublicKey('3246iatSBkgSvH4X1FPC3JJ4u6mPg2QT2E6nVJZBRJrY'),
+    mainAsset: ASSETS.LINK,
     strategyType: STRATEGY_TYPES.SUPER_TREND,
     initialPoolTokenUsdValue: 1,
   },
-  {
-    name: 'SRM Super Trend',
-    poolSeed: new PublicKey('8uSTbreQ9ywGw3AYA7yP74KBsa78Y3wEEiDfnBKDFss'),
-    illustration: null,
-    description: superTrendDescription('SRM/USDC', '4H'),
-    shortDescription: superTrendDescription('SRM/USDC', '4H', true),
-    mintAddress: new PublicKey('3bysFcvbEDwqRKzRYpF6kXEwdwMYiBPWgyHfU3xJxRoN'),
-    mainAsset: ASSETS.SRM,
-    strategyType: STRATEGY_TYPES.SUPER_TREND,
-    initialPoolTokenUsdValue: 1,
-  },
-  {
-    name: 'FIDA Super Trend',
-    poolSeed: new PublicKey('9Wrpzph39RPbkKtgap3xak4Dga7SgHedLwWEcTF2zSpV'),
-    illustration: null,
-    description: superTrendDescription('FIDA/USDC', '4H'),
-    shortDescription: superTrendDescription('FIDA/USDC', '4H', true),
-    mintAddress: new PublicKey('AwJYRT7ecgF18rZDatU9DpUGPwB3tYJ3u7jongCumsKA'),
-    mainAsset: ASSETS.FIDA,
-    strategyType: STRATEGY_TYPES.SUPER_TREND,
-    initialPoolTokenUsdValue: 1,
-  },
+  
   // Benson
   {
     name: 'Sentiment Strategy Pro [Benson]',
@@ -298,9 +287,9 @@ export const USE_POOLS: Pool[] = [
     strategyType: STRATEGY_TYPES.VOLATILITY_EXPANSION,
     initialPoolTokenUsdValue: 1,
   },
-  // RSI
+  // TYTHE
   {
-    name: '4hr RSI HL2 BTC',
+    name: 'TYTHE BTC 4H',
     poolSeed: new PublicKey('a4sAGUwpRhtmNSTDaz5EbvSTfdm6v3hp9ZLeiFaTD8R'),
     illustration: dca,
     description: rsiDescription('BTC/USDC', '4H'),
@@ -308,10 +297,10 @@ export const USE_POOLS: Pool[] = [
     mintAddress: new PublicKey('9ZBkiAw5mZbRx4easMvyJTgbniZrXsqghzs6ZVwzP1Da'),
     mainAsset: ASSETS.BTC,
     strategyType: STRATEGY_TYPES.RSI,
-    initialPoolTokenUsdValue: 1,
+    initialPoolTokenUsdValue: 100,
   },
   {
-    name: '15MIN RSI DIVS BTC',
+    name: 'TYTHE BTC 15MIN',
     poolSeed: new PublicKey('3s34bzGFdz4PwyCULuvXmX359tGfrKsoDdXWNYmCgyGr'),
     illustration: dca,
     description: rsiDescription('BTC/USDC', '15min'),
@@ -322,27 +311,17 @@ export const USE_POOLS: Pool[] = [
     initialPoolTokenUsdValue: 1,
   },
   {
-    name: 'ORION',
-    poolSeed: new PublicKey('9B6bYaydXdH2rB36n6D9iQNGg6jygPaVQYeZvUekAtLE'),
+    name: 'TYTHE BTC 8/41',
+    poolSeed: new PublicKey('CitkcPD3WhpbDR4cEsnh1RmyhvGChkrwnLMVgxNNAL6R'),
     illustration: dca,
-    description: rsiDescription('BTC/USDT', '1H'),
-    shortDescription: rsiDescription('BTC/USDT', '1H', true),
-    mintAddress: new PublicKey('AChHpa3MTPfWQCiTfEZFNwfAZQRsoVhAD7krFEiu4cbJ'),
+    description: rsiDescription('BTC/USDC', '1H'),
+    shortDescription: rsiDescription('BTC/USDC', '1H', true),
+    mintAddress: new PublicKey('G6K8p6GQdejaNCxmJtasUTK6wcfxB47UhPwyHgYi4Hst'),
     mainAsset: ASSETS.BTC,
     strategyType: STRATEGY_TYPES.RSI,
     initialPoolTokenUsdValue: 1,
   },
-  {
-    name: 'RSI FIDA',
-    poolSeed: new PublicKey('Bv3Acsiojxtj15f2tADwRA2VyLsQVm6CQqpaRsH8wHiN'),
-    illustration: dca,
-    description: rsiDescription('FIDA/USDC', '4H'),
-    shortDescription: rsiDescription('FIDA/USDC', '4H', true),
-    mintAddress: new PublicKey('HTCjo4azj2x6F1eCWCgV6jr1XsxPu2ig9rQPBkT8p75S'),
-    mainAsset: ASSETS.FIDA,
-    strategyType: STRATEGY_TYPES.RSI,
-    initialPoolTokenUsdValue: 1,
-  },
+  
   // MACD Strategies
   {
     name: 'MACD BTC',

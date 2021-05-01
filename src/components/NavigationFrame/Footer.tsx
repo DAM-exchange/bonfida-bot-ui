@@ -69,8 +69,7 @@ const Footer = () => {
         </ul>
         <Typography variant="body1">
           <Trans>
-            FIDA is not offered within the United States or prohibited
-            jurisdiction.
+        
           </Trans>
         </Typography>
       </footer>

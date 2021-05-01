@@ -104,10 +104,10 @@ const HomePage = () => {
       <div className={classes.root}>
         <ExploreBanner />
         <StrategySection
-          h2="Custom Strategies by our Creators"
-          strategiesArray={RSI_STRATEGIES}
+          h2="ORION Strategies"
+          strategiesArray={SUPER_TRENDS_STRATEGIES}
         />
-        <StrategySection h2="RSI Strategies" strategiesArray={RSI_STRATEGIES} />
+        <StrategySection h2="TYTHE Strategies" strategiesArray={RSI_STRATEGIES} />
         <div className={classes.exploreContainer}>
           <CustomButton onClick={() => history.push('/explore')}>
             <Trans>Explore</Trans>
