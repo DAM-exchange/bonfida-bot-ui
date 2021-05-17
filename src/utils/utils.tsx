@@ -7,7 +7,7 @@ import { AWESOME_TOKENS, AWESOME_MARKETS } from '@dr497/awesome-serum-markets';
 import { USE_POOLS } from './pools';
 import useMediaQuery from '@material-ui/core/useMediaQuery/useMediaQuery';
 import useTheme from '@material-ui/core/styles/useTheme';
-import { SERUM_PROGRAM_ID } from 'bonfida-bot';
+import { SERUM_PROGRAM_ID } from '@bonfida/bot';
 import bs58 from 'bs58';
 import crypto from 'crypto';
 
@@ -450,7 +450,6 @@ export const postTradingViewCredentials = async (
     },
     {
       'content-type': 'application/json',
-      'Access-Control-Allow-Origin': 'https://bots.bonfida.com',
     },
   );
 };
