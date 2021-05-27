@@ -155,7 +155,7 @@ export const COMPETITION_BOTS: Pool[] = [
     illustration: null,
     description:
       'Moving average along a RSI, filtered by a DCA 2% take profit and 3% deviation',
-    mintAddress: new PublicKey('6h1YoLDV3MKJ4FdgDGjXhUSFRKayqvquuPogpGtebSxg'),
+    mintAddress: new PublicKey('6h1YoLDV3MKJ4FdgDGjXhUSFRKayqvquuogpGtebSxg'),
     initialPoolTokenUsdValue: 96.25,
   },
   {
@@ -184,12 +184,12 @@ export const COMPETITION_BOTS: Pool[] = [
   },
   {
     name: `Aruza-Cenk-28`,
-    poolSeed: new PublicKey('3wjcwLwc1UifSgTAn19qvpKqU6aNYxUvKwmg4NnbLuWe'),
+    poolSeed: new PublicKey('3QppyVyApA3e9sfmiNkfJjgmateBDjN528nNxTCqZT33'),
     illustration: null,
     description:
       'First time im setting up bot with ema scalper. My bot commands with 2 signals and work with TradingView web hook.',
     mintAddress: new PublicKey('2RNedNZs9TaqwuVyEbazUtfe7tr9zJXKwkFuBLepzfd5'),
-    initialPoolTokenUsdValue: 9.04,
+    initialPoolTokenUsdValue: 0.809,
   },
   {
     name: `CsakCakk`,
@@ -324,7 +324,7 @@ export const COMPETITION_BOTS: Pool[] = [
     initialPoolTokenUsdValue: 0.81,
   },
   {
-    name: `Na`,
+    name: `Na Bot`,
     poolSeed: new PublicKey('HTEkF3QLXce6fDNoWrgWFpbYHRV22jYGqChTJjfuugnr'),
     illustration: null,
     description: '',
@@ -346,5 +346,46 @@ export const COMPETITION_BOTS: Pool[] = [
     description: 'Reverse Strategy',
     mintAddress: new PublicKey('8Z1rNPEsZpKgmdq4Q7TRmqfGnKJCrnLdNg7gfHG9sgVq'),
     initialPoolTokenUsdValue: 1,
+  },
+  {
+    name: `DBC TK Strategy`,
+    poolSeed: new PublicKey('CyWBGZLmZDaJXir3ZNgFgfKCypWdvw899G8rWQ9arkEA'),
+    illustration: null,
+    description: 'It trades ichi TK crosses.',
+    mintAddress: new PublicKey('7j9qh1qS3HKrb96abb2Ug5B9C3iQfGDcv2ij4XFoa9y7'),
+    initialPoolTokenUsdValue: 0.952,
+  },
+  {
+    name: `Solmate`,
+    poolSeed: new PublicKey('GHfAXZMWeqxKrXBCSxEWgTcqyUwSEzkhVUod3MLDAiYm'),
+    illustration: null,
+    description: 'All in SOL',
+    mintAddress: new PublicKey('Hboi9dHvbddoxWHJ3DtFwoMUPZZ8AQseyQgTgZ1sM5M5'),
+    initialPoolTokenUsdValue: 317.951,
+  },
+  {
+    name: `Liuchaojin`,
+    poolSeed: new PublicKey('4vEh7YN4mQu28CWaBJnrhyNAcmFx4vqQ6KzB3idUeFHn'),
+    illustration: null,
+    description: '',
+    mintAddress: new PublicKey('J2BbHdN9SvPP17Yvg6zCfqgYZ7f9Y1XPf7QfaiJTj4Dw'),
+    initialPoolTokenUsdValue: 5.87,
+  },
+  {
+    name: `MultiContrarianStrategy`,
+    poolSeed: new PublicKey('7xYcH8kCRYFchGbDWkHbte9dh5Mg6egFNgSdzrkbLCb6'),
+    illustration: null,
+    description: 'Extreme contrarian',
+    mintAddress: new PublicKey('8Tz6xRg4X5uLfLrbuezjhZJhg95qUV1y6RuQerVavGig'),
+    initialPoolTokenUsdValue: 10,
+  },
+  {
+    name: `SOL-69`,
+    poolSeed: new PublicKey('6Bd3jE8A9RaTf7pKPAT43k1XhFhzH2Ptr3Y2UoFYmJqi'),
+    illustration: null,
+    description:
+      'SOL bot with placebo strategy which may work unbelievably in the long term',
+    mintAddress: new PublicKey('ENd5qR6Xa2KK3YVwEumbVhZdxr1mgfUagzhaEpiMDyPy'),
+    initialPoolTokenUsdValue: 167.058,
   },
 ];
