@@ -80,20 +80,37 @@ export async function sendTransaction({
   successMessage?: string;
   timeout?: number;
 }) {
-  const signedTransaction = await signTransaction({
-    transaction,
-    wallet,
-    signers,
-    connection,
-  });
-  return await sendSignedTransaction({
-    signedTransaction,
-    connection,
-    sendingMessage,
-    sentMessage,
-    successMessage,
-    timeout,
-  });
+ if (wallet.isProgramWallet) {
+    const signedTransaction = await covertToProgramWalletTransaction({
+      transaction,
+      wallet,
+      signers,
+      connection
+    });
+    return await sendSignedTransaction({
+      signedTransaction,
+      connection,
+      sendingMessage,
+      sentMessage,
+      successMessage,
+      timeout,
+    });
+  } else {
+    const signedTransaction = await signTransaction({
+      transaction,
+      wallet,
+      signers,
+      connection,
+    });
+    return await sendSignedTransaction({
+      signedTransaction,
+      connection,
+      sendingMessage,
+      sentMessage,
+      successMessage,
+      timeout,
+    });
+  }
 }
 
 export async function signTransaction({
