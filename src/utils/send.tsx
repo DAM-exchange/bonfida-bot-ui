@@ -80,7 +80,11 @@ export async function sendTransaction({
   successMessage?: string;
   timeout?: number;
 }) {
+<<<<<<< HEAD
  if (wallet.isProgramWallet) {
+=======
+  if (wallet.isProgramWallet) {
+>>>>>>> cfcbe21398adf55f5baa2042aa6f8418d9bd2fd8
     const signedTransaction = await covertToProgramWalletTransaction({
       transaction,
       wallet,
@@ -132,6 +136,29 @@ export async function signTransaction({
     transaction.partialSign(...signers);
   }
   return await wallet.signTransaction(transaction);
+}
+
+async function covertToProgramWalletTransaction({
+  transaction,
+  wallet,
+  signers = [],
+  connection,
+
+}: {
+  transaction: Transaction,
+  wallet: any,
+  signers: Array<Account>;
+  connection: Connection,
+}) {
+  transaction.recentBlockhash = (
+    await connection.getRecentBlockhash("max")
+  ).blockhash;
+  transaction.feePayer = wallet.publicKey;
+  if (signers.length > 0) {
+    transaction = await wallet.convertToProgramWalletTransaction(transaction);
+    transaction.partialSign(...signers);
+  }
+  return transaction;
 }
 
 export async function signTransactions({
