@@ -1,0 +1,136 @@
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import CustomButton from '../components/CustomButton';
+import Grid from '@material-ui/core/Grid';
+import { useHistory } from 'react-router-dom';
+import robot from '../assets/icons/illustrations/robot-top-bar.svg';
+import FloatingCard from '../components/FloatingCard';
+import { useSmallScreen } from '../utils/utils';
+import {
+  RSI_STRATEGIES,
+  SUPER_TRENDS_STRATEGIES,
+  StrategySection,
+  OVERHEAD_STRATEGIES,
+} from './ExplorePage';
+import Trans from '../components/Translation';
+
+const useStyles = makeStyles({
+  root: {
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '3%',
+  },
+  bannerContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: '50px',
+  },
+  title: {
+    fontWeight: 500,
+    fontSize: 32,
+    color: '#393939',
+    marginLeft: 50,
+  },
+  exploreContainer: {
+    paddingTop: '50px',
+  },
+  redShadowRight: {
+    boxShadow: '12px 12px 0px 1px #2186ba',
+    background: '#F0E9E7',
+    border: '2px solid #2186ba',
+    boxSizing: 'border-box',
+    width: '50vw',
+    height: 250,
+  },
+  subtitle: {
+    fontWeight: 500,
+    fontSize: 24,
+  },
+  exploreBanner: {
+    width: '50vw',
+  },
+  competitionDetails: {
+    fontSize: 16,
+    color: '#393939',
+  },
+});
+
+const ExploreBanner = () => {
+  const classes = useStyles();
+  const history = useHistory();
+  const smallScreen = useSmallScreen('lg');
+  return (
+    <FloatingCard>
+      <div className={classes.exploreBanner}>
+        <Grid
+          container
+          direction="row"
+          justify="space-around"
+          alignItems="center"
+          style={{ marginTop: 30 }}
+        >
+          <Grid item>
+            <Typography className={classes.title} variant="h1">
+              <Trans>Create and automate your</Trans>
+              <br />
+              <Trans>trading strategies on chain.</Trans>
+            </Typography>
+            <CustomButton
+              style={{ marginLeft: 50, marginTop: 40 }}
+              onClick={() => {
+                history.push('/explore');
+              }}
+            >
+              <Trans>Explore strategy</Trans>
+            </CustomButton>
+          </Grid>
+          {!smallScreen && (
+            <Grid item>
+              <img src={robot} style={{ height: 100 }} alt="" />
+            </Grid>
+          )}
+        </Grid>
+      </div>
+    </FloatingCard>
+  );
+};
+
+const HomePage = () => {
+  const classes = useStyles();
+  const history = useHistory();
+  return (
+    <>
+      <div className={classes.root}>
+        <ExploreBanner />
+<<<<<<< HEAD
+	<StrategySection h2="TYCHE Strategies" strategiesArray={RSI_STRATEGIES} />
+	   <StrategySection
+          h2="Overhead Strategies"
+          strategiesArray={OVERHEAD_STRATEGIES}
+=======
+        <StrategySection
+          h2="Overhead Strategies"
+          strategiesArray={OVERHEAD_STRATEGIES}
+        />
+        <StrategySection
+          h2="Super Trend Strategies"
+          strategiesArray={SUPER_TRENDS_STRATEGIES}
+>>>>>>> cfcbe21398adf55f5baa2042aa6f8418d9bd2fd8
+        />
+        <div className={classes.exploreContainer}>
+          <CustomButton onClick={() => history.push('/explore')}>
+            <Trans>Explore</Trans>
+          </CustomButton>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default HomePage;
