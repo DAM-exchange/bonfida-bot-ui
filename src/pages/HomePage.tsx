@@ -11,6 +11,7 @@ import {
   RSI_STRATEGIES,
   SUPER_TRENDS_STRATEGIES,
   StrategySection,
+  OVERHEAD_STRATEGIES,
 } from './ExplorePage';
 import Trans from '../components/Translation';
 
@@ -107,11 +108,11 @@ const HomePage = () => {
     <>
       <div className={classes.root}>
         <ExploreBanner />
-        <StrategySection
-          h2="ORION Strategies"
-          strategiesArray={SUPER_TRENDS_STRATEGIES}
+	<StrategySection h2="TYCHE Strategies" strategiesArray={RSI_STRATEGIES} />
+	   <StrategySection
+          h2="Overhead Strategies"
+          strategiesArray={OVERHEAD_STRATEGIES}
         />
-        <StrategySection h2="TYCHE Strategies" strategiesArray={RSI_STRATEGIES} />
         <div className={classes.exploreContainer}>
           <CustomButton onClick={() => history.push('/explore')}>
             <Trans>Explore</Trans>
