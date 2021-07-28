@@ -105,7 +105,7 @@ const Logo = () => {
           />
         </Grid>
         <Grid item>
-          <Typography className={classes.bonfidaBot}>DAMex</Typography>
+          <Typography className={classes.bonfidaBot}>DAM.exchange</Typography>
         </Grid>
       </Grid>
     </>

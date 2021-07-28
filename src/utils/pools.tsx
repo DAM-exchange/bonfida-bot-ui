@@ -108,14 +108,14 @@ const rsiDescription = (
     return (
       <>
         <b style={styles.b}>{tf} Tyche</b> strategy on{' '}
-        <b style={styles.b}>{marketName}</b>. Tyche is intelectual property of DAM.ex.
+        <b style={styles.b}>{marketName}</b>. Tyche is intelectual property of DAM.exchange.
       </>
     );
   }
   return (
     <Trans i18nKey="rsi">
       <b style={styles.b}>{{ tf }} Tyche</b> strategy on{' '}
-      <b style={styles.b}>{{ marketName }}</b>. Tyche is intelectual property of DAM.ex, learn more about it
+      <b style={styles.b}>{{ marketName }}</b>. Tyche is intelectual property of DAM.exchange, learn more about it
       on the{' '}
       <Link external to="https://DAM.exchange">
         dedicated page

@@ -80,11 +80,7 @@ export async function sendTransaction({
   successMessage?: string;
   timeout?: number;
 }) {
-<<<<<<< HEAD
- if (wallet.isProgramWallet) {
-=======
   if (wallet.isProgramWallet) {
->>>>>>> cfcbe21398adf55f5baa2042aa6f8418d9bd2fd8
     const signedTransaction = await covertToProgramWalletTransaction({
       transaction,
       wallet,

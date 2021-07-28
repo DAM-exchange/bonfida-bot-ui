@@ -108,21 +108,14 @@ const HomePage = () => {
     <>
       <div className={classes.root}>
         <ExploreBanner />
-<<<<<<< HEAD
 	<StrategySection h2="TYCHE Strategies" strategiesArray={RSI_STRATEGIES} />
-	   <StrategySection
-          h2="Overhead Strategies"
-          strategiesArray={OVERHEAD_STRATEGIES}
-=======
         <StrategySection
           h2="Overhead Strategies"
           strategiesArray={OVERHEAD_STRATEGIES}
         />
         <StrategySection
           h2="Super Trend Strategies"
-          strategiesArray={SUPER_TRENDS_STRATEGIES}
->>>>>>> cfcbe21398adf55f5baa2042aa6f8418d9bd2fd8
-        />
+          strategiesArray={SUPER_TRENDS_STRATEGIES}/>
         <div className={classes.exploreContainer}>
           <CustomButton onClick={() => history.push('/explore')}>
             <Trans>Explore</Trans>
