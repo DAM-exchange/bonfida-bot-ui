@@ -323,6 +323,17 @@ export const USE_POOLS: Pool[] = [
     strategyType: STRATEGY_TYPES.RSI,
     initialPoolTokenUsdValue: 1,
   },
+    {
+    name: 'TYCHE BULL 3x 4H',
+    poolSeed: new PublicKey('3hzbY7L7sTu9yZXJ6ACK38qsYF1irsFKKHfREhJz5RQR'),
+    illustration: dca,
+    description: rsiDescription('BULL/USDC', '4H'),
+    shortDescription: rsiDescription('BULL/USDC', '4H', true),
+    mintAddress: new PublicKey('DcsJezLgvU6LkA73eDDprnHhnjPfk169wVFKhENRmf1i'),
+    mainAsset: ASSETS.BTC,
+    strategyType: STRATEGY_TYPES.RSI,
+    initialPoolTokenUsdValue: 1,
+  },
   
   // MACD Strategies
   {
